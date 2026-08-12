@@ -216,3 +216,31 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# --- TRI-Project specific: large data & model artifacts (kept in Google Drive, not git) ---
+*.txt
+!requirements.txt
+!README.md
+
+# Tokenizer files (can be several MB each)
+*_tokenizer.json
+*_raw.json
+baseline_bpe_tokenizer.json
+superbpe_stage1_tokenizer.json
+superbpe_stage2_raw.json
+
+# Combined/training corpora
+combined_corpus.txt
+stage2_meta_corpus.txt
+model_train_text.txt
+model_eval_text.txt
+
+# Trained model weights (Phase 4 onward)
+*.bin
+*.pt
+*.safetensors
+checkpoints/
+runs/
+
+# Colab-specific
+.ipynb_checkpoints/
