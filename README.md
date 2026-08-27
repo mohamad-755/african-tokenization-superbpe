@@ -6,7 +6,7 @@ reduces text fragmentation, and whether that improvement translates into
 better model performance.
 
 **Program:** TRI AI Saturdays
-**Status:** Phases 1–3 complete. Phase 4 (model integration) in progress.
+**Status:** Phases 1–4 complete. Phase 5 (evaluation) in progress.
 
 ---
 
@@ -32,8 +32,10 @@ Kinyarwanda (rw) · Swahili (sw) · Wolof (wo) · Yoruba (yo) · Zulu (zu)
 
 Spanning three language families (Niger-Congo/Bantu, Afro-Asiatic,
 Niger-Congo/Volta-Niger) to test whether results generalize rather than
-overfitting to one morphological pattern. See [`data_card.md`](./data_card.md)
-for full corpus documentation, cleaning methodology, and known limitations.
+overfitting to one morphological pattern. See
+[`docs/data_card.md`](./docs/data_card.md) for corpus documentation,
+cleaning methodology, and known limitations (currently a stub — the full
+Data Card lives in Google Drive, see `docs/drive_structure.md`).
 
 ## Methodology
 
@@ -93,35 +95,72 @@ A consistency check: SuperBPE also produces ~11.8% fewer total tokens across
 the training corpus (6.07M vs. 6.89M tokens for the same text), matching the
 fragmentation reduction measured independently on eval data.
 
+### Model comparison (bits per byte, tiny GPT-2-style model)
+
+To test whether SuperBPE's fragmentation advantage translates into better
+model performance, we trained matched ~9.4M-parameter GPT-2-style models
+(`n_embd=256, n_layer=4, n_head=4, block_size=256`, `vocab_size=24,000` for
+both) for 3 epochs on the same raw text, tokenized separately by each
+tokenizer. We compare **bits-per-byte** rather than raw loss, since
+SuperBPE's tokens each represent more raw text — a raw per-token loss
+comparison would be unfair.
+
+| Tokenizer | Bits/byte |
+|-----------|-----------|
+| Baseline BPE | **1.8657** |
+| SuperBPE     | 2.0125 (7.9% worse) |
+
+**SuperBPE underperformed at this tiny scale.** Its coarser tokenization
+means ~12% fewer training tokens/gradient updates for the same raw text,
+and each token is a harder prediction target — a disadvantage that likely
+outweighs the fragmentation benefit when the model and dataset are this
+small and undertrained (9.4M params, ~4M words, 3 epochs). This is
+consistent with the broader pattern that coarse tokenization schemes tend
+to show benefits at larger model/data scale, not smaller. We treat this as
+a genuine, reportable finding rather than a failure — full details in
+[`results/model_comparison_results.json`](./results/model_comparison_results.json).
+
 ## Repository structure
 
 ```
 .
 ├── README.md
-├── data_card.md              # corpus sourcing, cleaning, per-language stats
+├── LICENSE
+├── docs/
+│   ├── data_card.md              # corpus sourcing, cleaning, per-language stats (stub)
+│   └── drive_structure.md        # expected Google Drive layout for large artifacts
+├── scripts/                      # Phase 1 data pipeline (01_download_and_extract.sh -> 05_convert_masakhaner_to_corpus.py)
 ├── notebooks/
-│   ├── phase2_baseline_bpe.ipynb
-│   ├── phase3_superbpe.ipynb
-│   └── phase4_model_eval.ipynb
+│   └── phase2_3_tokenizer_training.ipynb   # Phase 2 (baseline BPE) + Phase 3 (SuperBPE)
 ├── results/
 │   ├── baseline_fragmentation_results.json
-│   └── superbpe_fragmentation_results.json
-└── .gitignore                # excludes large corpus/tokenizer files (kept in Drive)
+│   ├── superbpe_fragmentation_results.json
+│   └── model_comparison_results.json
+└── .gitignore                    # excludes large corpus/tokenizer files (kept in Drive)
 ```
 
 Large data files (combined corpus, tokenizer `.json` files, trained model
 weights) are intentionally excluded from git and kept in Google Drive —
-see notebooks for the exact paths expected.
+see `docs/drive_structure.md` for the exact expected paths.
 
 ## Status / next steps
 
 - [x] Phase 1 — Data engineering (corpus collection, cleaning, eval splits)
 - [x] Phase 2 — Baseline BPE tokenizer, trained and validated
 - [x] Phase 3 — SuperBPE tokenizer, trained and validated
-- [ ] Phase 4 — Model integration: training matched small language models on
-      each tokenizer's output, comparing via bits-per-byte
-- [ ] Phase 5 — Full evaluation suite (compression efficiency, vocabulary
-      utilization, compute cost, downstream tasks, qualitative review)
+- [x] Phase 4 — Model integration: matched tiny language models trained on
+      each tokenizer's output, compared via bits-per-byte (SuperBPE 7.9%
+      worse at this scale — see results above)
+- [ ] Phase 5 — Evaluation (scoped down from the original 6-metric plan to
+      1–2 lightweight metrics, prioritizing a strong final report over thin
+      coverage):
+  - [ ] Compression efficiency (bytes/token) per language — in progress
+  - [ ] Vocabulary utilization — optional/lower priority
+  - [ ] Compute cost estimate — optional/lower priority
+  - [ ] Downstream task performance — likely out of scope (would need
+        labeled benchmarks, e.g. MasakhaNER-style tasks)
+  - [ ] Qualitative morphological validity — likely out of scope (no
+        native-speaker reviewer currently available)
 - [ ] Phase 6 — Final report and codebase cleanup
 
 ## References

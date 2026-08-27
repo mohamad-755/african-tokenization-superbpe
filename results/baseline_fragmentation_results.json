@@ -1,0 +1,18 @@
+{
+  "metric": "tokens_per_word",
+  "tokenizer": "baseline_bpe",
+  "vocab_size": 24000,
+  "eval_set": "eval_holdout (5%, seed=42, per language)",
+  "results": {
+    "am": 2.897,
+    "ha": 1.434,
+    "ig": 1.546,
+    "ny": 1.769,
+    "rw": 1.934,
+    "sw": 1.577,
+    "wo": 1.656,
+    "yo": 1.816,
+    "zu": 2.489
+  },
+  "note": "Reconstructed from README.md's results table on 2026-08-27; the original notebook-generated JSON lives in Google Drive and was not copied into this repo. Replace this file with the actual Drive artifact if/when it's brought into version control."
+}

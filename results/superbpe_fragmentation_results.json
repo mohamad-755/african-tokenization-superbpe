@@ -1,0 +1,36 @@
+{
+  "metric": "tokens_per_word",
+  "tokenizer": "superbpe_two_stage",
+  "vocab_size": 24000,
+  "stage1_vocab_size": 19200,
+  "eval_set": "eval_holdout (5%, seed=42, per language)",
+  "results": {
+    "am": 2.830,
+    "ha": 1.179,
+    "ig": 1.222,
+    "ny": 1.682,
+    "rw": 1.771,
+    "sw": 1.398,
+    "wo": 1.581,
+    "yo": 1.502,
+    "zu": 2.407
+  },
+  "reduction_vs_baseline_pct": {
+    "am": 2.3,
+    "ha": 17.8,
+    "ig": 21.0,
+    "ny": 4.9,
+    "rw": 8.4,
+    "sw": 11.4,
+    "wo": 4.5,
+    "yo": 17.3,
+    "zu": 3.3
+  },
+  "average_reduction_pct": 10.1,
+  "training_corpus_consistency_check": {
+    "baseline_total_tokens": 6890000,
+    "superbpe_total_tokens": 6070000,
+    "reduction_pct": 11.8
+  },
+  "note": "Reconstructed from README.md's results table on 2026-08-27; the original notebook-generated JSON lives in Google Drive and was not copied into this repo. Replace this file with the actual Drive artifact if/when it's brought into version control."
+}

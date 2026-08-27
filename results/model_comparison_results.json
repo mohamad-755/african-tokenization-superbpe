@@ -1,0 +1,28 @@
+{
+  "metric": "bits_per_byte",
+  "formula": "bits_per_byte = (eval_loss_nats * log2(e) * num_tokens_evaluated) / total_raw_bytes_of_eval_text",
+  "model": {
+    "architecture": "GPT-2-style",
+    "n_embd": 256,
+    "n_layer": 4,
+    "n_head": 4,
+    "block_size": 256,
+    "n_params": 9369088,
+    "vocab_size": 24000,
+    "epochs": 3
+  },
+  "data": {
+    "train_lines": 19000,
+    "eval_lines": 1000,
+    "train_bytes_approx": 28000000,
+    "eval_bytes_approx": 1400000,
+    "source": "same raw text subset of combined_corpus.txt, tokenized separately by each tokenizer"
+  },
+  "results": {
+    "baseline_bpe": 1.8657,
+    "superbpe": 2.0125,
+    "superbpe_relative_change_pct": 7.9
+  },
+  "interpretation": "SuperBPE was 7.9% worse (higher bits/byte = worse) at this tiny scale. SuperBPE's coarser tokenization yields ~12% fewer training tokens/gradient updates for the same raw text, and each token is a harder prediction target -- a disadvantage that likely outweighs the fragmentation benefit at this undertrained scale (9.4M params, ~4M words, 3 epochs). Consistent with the broader pattern that coarse tokenization schemes tend to show benefits at larger model/data scale. Treated as a genuine, reportable negative result, not a bug.",
+  "note": "Reconstructed from claude_code_handoff_prompt.md's Phase 4 summary on 2026-08-27; the original notebook-generated JSON lives in Google Drive and was not copied into this repo. Replace this file with the actual Drive artifact if/when it's brought into version control."
+}
