@@ -182,7 +182,7 @@ see `docs/drive_structure.md` for the exact expected paths.
 - [x] Phase 4 — Model integration: matched tiny language models trained on
       each tokenizer's output, compared via bits-per-byte (SuperBPE 7.9%
       worse at this scale — see results above)
-- [ ] Phase 5 — Evaluation (scoped down from the original 6-metric plan to
+- [x] Phase 5 — Evaluation (scoped down from the original 6-metric plan to
       1–2 lightweight metrics, prioritizing a strong final report over thin
       coverage):
   - [x] Compression efficiency (bytes/token) per language
@@ -192,7 +192,7 @@ see `docs/drive_structure.md` for the exact expected paths.
         labeled benchmarks, e.g. MasakhaNER-style tasks)
   - [ ] Qualitative morphological validity — likely out of scope (no
         native-speaker reviewer currently available)
-- [ ] Phase 6 — Final report (done) and codebase cleanup (in progress)
+- [x] Phase 6 — Final report and codebase cleanup
 
 ## References
 
