@@ -95,6 +95,35 @@ A consistency check: SuperBPE also produces ~11.8% fewer total tokens across
 the training corpus (6.07M vs. 6.89M tokens for the same text), matching the
 fragmentation reduction measured independently on eval data.
 
+### Compression efficiency (bytes per token, held-out eval data)
+
+Higher bytes/token is better here — it means fewer tokens are needed to
+represent the same amount of raw text.
+
+| Language    | Baseline | SuperBPE | Improvement |
+|-------------|----------|----------|-------------|
+| Igbo        | 4.121    | 5.213    | **26.5%**   |
+| Hausa       | 4.012    | 4.878    | **21.6%**   |
+| Yoruba      | 3.810    | 4.605    | **20.9%**   |
+| Swahili     | 4.070    | 4.592    | 12.8%       |
+| Kinyarwanda | 3.782    | 4.130    | 9.2%        |
+| Chichewa    | 4.048    | 4.257    | 5.2%        |
+| Wolof       | 3.255    | 3.407    | 4.7%        |
+| Zulu        | 3.759    | 3.887    | 3.4%        |
+| Amharic     | 5.232    | 5.356    | 2.4%        |
+| **Average** |          |          | **11.8%**   |
+
+The per-language ranking here is identical to the fragmentation table above
+(Igbo > Hausa > Yoruba > Swahili > Kinyarwanda > Chichewa > Wolof > Zulu >
+Amharic in both). This is convergent validation from two independent
+metrics rather than a new, separate finding.
+
+> A data-hygiene issue affecting these held-out results was found after
+> they were produced — see `reports/final_report.md` Section 7 for full
+> details. It does not change the relative baseline-vs-SuperBPE
+> comparison, since both were affected identically, but the absolute
+> figures above should be read with that caveat in mind.
+
 ### Model comparison (bits per byte, tiny GPT-2-style model)
 
 To test whether SuperBPE's fragmentation advantage translates into better
@@ -136,6 +165,8 @@ a genuine, reportable finding rather than a failure — full details in
 │   ├── baseline_fragmentation_results.json
 │   ├── superbpe_fragmentation_results.json
 │   └── model_comparison_results.json
+├── reports/
+│   └── final_report.md           # Final technical report (Phase 6 deliverable)
 └── .gitignore                    # excludes large corpus/tokenizer files (kept in Drive)
 ```
 
@@ -154,14 +185,14 @@ see `docs/drive_structure.md` for the exact expected paths.
 - [ ] Phase 5 — Evaluation (scoped down from the original 6-metric plan to
       1–2 lightweight metrics, prioritizing a strong final report over thin
       coverage):
-  - [ ] Compression efficiency (bytes/token) per language — in progress
+  - [x] Compression efficiency (bytes/token) per language
   - [ ] Vocabulary utilization — optional/lower priority
   - [ ] Compute cost estimate — optional/lower priority
   - [ ] Downstream task performance — likely out of scope (would need
         labeled benchmarks, e.g. MasakhaNER-style tasks)
   - [ ] Qualitative morphological validity — likely out of scope (no
         native-speaker reviewer currently available)
-- [ ] Phase 6 — Final report and codebase cleanup
+- [ ] Phase 6 — Final report (done) and codebase cleanup (in progress)
 
 ## References
 

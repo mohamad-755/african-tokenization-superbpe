@@ -1,0 +1,65 @@
+{
+  "am": {
+    "total_bytes": 989035,
+    "baseline_tokens": 189051,
+    "superbpe_tokens": 184670,
+    "baseline_bytes_per_token": 5.2316,
+    "superbpe_bytes_per_token": 5.3557
+  },
+  "ha": {
+    "total_bytes": 13059870,
+    "baseline_tokens": 3255483,
+    "superbpe_tokens": 2677238,
+    "baseline_bytes_per_token": 4.0117,
+    "superbpe_bytes_per_token": 4.8781
+  },
+  "ig": {
+    "total_bytes": 6273343,
+    "baseline_tokens": 1522266,
+    "superbpe_tokens": 1203414,
+    "baseline_bytes_per_token": 4.1211,
+    "superbpe_bytes_per_token": 5.213
+  },
+  "ny": {
+    "total_bytes": 57626,
+    "baseline_tokens": 14236,
+    "superbpe_tokens": 13536,
+    "baseline_bytes_per_token": 4.0479,
+    "superbpe_bytes_per_token": 4.2572
+  },
+  "rw": {
+    "total_bytes": 719651,
+    "baseline_tokens": 190274,
+    "superbpe_tokens": 174237,
+    "baseline_bytes_per_token": 3.7822,
+    "superbpe_bytes_per_token": 4.1303
+  },
+  "sw": {
+    "total_bytes": 3243770,
+    "baseline_tokens": 796951,
+    "superbpe_tokens": 706377,
+    "baseline_bytes_per_token": 4.0702,
+    "superbpe_bytes_per_token": 4.5921
+  },
+  "wo": {
+    "total_bytes": 102513,
+    "baseline_tokens": 31498,
+    "superbpe_tokens": 30092,
+    "baseline_bytes_per_token": 3.2546,
+    "superbpe_bytes_per_token": 3.4067
+  },
+  "yo": {
+    "total_bytes": 987072,
+    "baseline_tokens": 259077,
+    "superbpe_tokens": 214330,
+    "baseline_bytes_per_token": 3.81,
+    "superbpe_bytes_per_token": 4.6054
+  },
+  "zu": {
+    "total_bytes": 381351,
+    "baseline_tokens": 101443,
+    "superbpe_tokens": 98104,
+    "baseline_bytes_per_token": 3.7593,
+    "superbpe_bytes_per_token": 3.8872
+  }
+}
